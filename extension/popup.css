@@ -1,0 +1,22 @@
+:root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+body { margin: 0; width: 300px; background: #f7f8fa; color: #182230; }
+main { padding: 16px; }
+header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.logo { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; color: white; background: #0f1419; font-weight: 800; font-size: 20px; }
+h1 { margin: 0; font-size: 15px; } p { margin: 3px 0 0; font-size: 12px; color: #637083; }
+.toggle { display: flex; align-items: center; gap: 8px; margin: 14px 0; font-size: 13px; }
+.toggle input { position: absolute; opacity: 0; }
+.toggle span { width: 34px; height: 20px; border-radius: 10px; background: #c6ced8; position: relative; transition: .15s; }
+.toggle span::after { content: ""; position: absolute; width: 16px; height: 16px; top: 2px; left: 2px; border-radius: 50%; background: white; transition: .15s; box-shadow: 0 1px 3px #0003; }
+.toggle input:checked + span { background: #1d9bf0; }
+.toggle input:checked + span::after { left: 16px; }
+.field { display: grid; gap: 7px; margin: 16px 0; font-size: 12px; color: #637083; }
+.field strong { color: #182230; float: right; }
+input[type="range"] { width: 100%; accent-color: #1d9bf0; }
+input[type="url"] { box-sizing: border-box; width: 100%; padding: 8px; border: 1px solid #ccd4df; border-radius: 8px; font: inherit; font-size: 12px; }
+input[type="password"] { box-sizing: border-box; width: 100%; padding: 8px; border: 1px solid #ccd4df; border-radius: 8px; font: inherit; font-size: 12px; }
+.status { min-height: 17px; margin: 12px 0; color: #637083; font-size: 12px; }
+.status.ok { color: #147a46; } .status.error { color: #a52b1d; }
+button { width: 100%; border: 0; border-radius: 9px; padding: 9px; color: white; background: #0f1419; cursor: pointer; font-weight: 700; }
+.security-note { line-height: 1.45; color: #637083; font-size: 11px; }
+.hint { line-height: 1.45; margin-top: 13px; } code { background: #e8edf3; padding: 1px 3px; border-radius: 3px; }

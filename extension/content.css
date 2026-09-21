@@ -1,0 +1,128 @@
+.jev-guard-badge {
+  align-items: center;
+  backdrop-filter: blur(8px);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  display: inline-flex;
+  font: 600 12px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  gap: 4px;
+  max-width: min(260px, calc(100% - 24px));
+  padding: 5px 9px;
+  pointer-events: auto;
+  position: absolute;
+  right: 12px;
+  text-overflow: ellipsis;
+  top: 8px;
+  white-space: nowrap;
+  z-index: 20;
+}
+
+.jev-guard-badge--flagged {
+  background: rgba(255, 243, 238, 0.97);
+  color: #a52b1d;
+}
+
+.jev-guard-badge--clean {
+  background: rgba(237, 252, 244, 0.97);
+  color: #147a46;
+}
+
+.jev-guard-badge--pending {
+  background: rgba(245, 247, 250, 0.97);
+  color: #536071;
+}
+
+.jev-guard-badge--error {
+  background: rgba(255, 248, 224, 0.98);
+  color: #8a5a00;
+}
+
+.jev-guard-watermark {
+  align-items: center;
+  background: rgba(255, 247, 243, 0.16);
+  border: 6px solid rgba(201, 55, 45, 0.58);
+  box-sizing: border-box;
+  box-shadow: inset 0 0 0 2px rgba(201, 55, 45, 0.62), 0 0 0 2px rgba(201, 55, 45, 0.3);
+  color: rgba(191, 48, 39, 0.72);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  margin: 10px auto 5px;
+  min-height: 104px;
+  opacity: 0.58;
+  overflow: hidden;
+  padding: 10px 18px;
+  pointer-events: none;
+  position: relative;
+  width: 92%;
+  text-align: center;
+  transform: rotate(-8deg);
+  user-select: none;
+  z-index: 1;
+}
+
+.jev-guard-watermark::after {
+  border: 2px solid currentColor;
+  content: "";
+  inset: 7px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.jev-guard-watermark--ad {
+  background: rgba(255, 248, 226, 0.16);
+  border-color: rgba(176, 116, 19, 0.62);
+  box-shadow: inset 0 0 0 2px rgba(176, 116, 19, 0.52), 0 0 0 2px rgba(176, 116, 19, 0.24);
+  color: rgba(151, 95, 11, 0.78);
+}
+
+.jev-guard-watermark__word {
+  font: 900 72px/0.82 Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  letter-spacing: 0.08em;
+  position: relative;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.4);
+  z-index: 1;
+}
+
+.jev-guard-watermark__detail {
+  font: 800 12px/1.1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: 0.08em;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+article.jev-guard-flagged {
+  box-shadow: inset 4px 0 0 #d84b3e;
+}
+
+article.jev-guard-clean {
+  box-shadow: inset 3px 0 0 rgba(20, 122, 70, 0.38);
+}
+
+@media (max-width: 520px) {
+  .jev-guard-watermark {
+    border-width: 4px;
+    min-height: 78px;
+    padding: 7px 12px;
+    width: 94%;
+  }
+
+  .jev-guard-watermark::after {
+    inset: 5px;
+  }
+
+  .jev-guard-watermark__word {
+    font-size: 48px;
+  }
+
+  .jev-guard-watermark__detail {
+    font-size: 10px;
+  }
+}

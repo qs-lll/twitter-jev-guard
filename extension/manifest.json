@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Twitter Jev Guard",
+  "version": "0.1.0",
+  "description": "Use Jev to mark low-quality and spammy X/Twitter posts while you browse.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://x.com/*", "https://twitter.com/*", "https://api.typesafe.ai/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": {
+    "default_title": "Twitter Jev Guard",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Twitter Jev Guard</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="logo">J</div>
+        <div><h1>Twitter Jev Guard</h1><p>浏览 X 时标记低质量内容</p></div>
+      </header>
+      <label class="toggle"><input id="enabled" type="checkbox" /><span></span><b>启用自动判断</b></label>
+      <label class="field"><span>标记阈值 <strong id="thresholdValue">75%</strong></span><input id="threshold" type="range" min="55" max="95" step="1" /></label>
+      <label class="toggle"><input id="showClean" type="checkbox" /><span></span><b>同时显示正常帖子</b></label>
+      <label class="field"><span>Jev API key</span><input id="apiKey" type="password" autocomplete="off" placeholder="apikey_..." /></label>
+      <p class="security-note">API key 只保存在此浏览器的扩展本地存储中，并由扩展后台直接发送给 TypeSafe。</p>
+      <div id="status" class="status">正在检查 API key…</div>
+      <button id="save" type="button">保存设置</button>
+      <p class="hint">保存 key 后刷新 X 页面即可开始判断，不需要运行本地代理。</p>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
