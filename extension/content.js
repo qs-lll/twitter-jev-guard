@@ -177,11 +177,13 @@
         if (chrome.runtime.lastError || !response?.ok) {
           retryAfter.set(item.post.id, Date.now() + 10_000);
           if (item.article.isConnected) addBadge(item.article, "jev-guard-badge--error", "Jev 请求失败", response?.error || chrome.runtime.lastError?.message || "请检查 API key");
-        } else if (item.article.isConnected) {
+        } else {
           retryAfter.delete(item.post.id);
           const result = { ...response.data, isAd: item.post.isAd };
+          // X can replace an article while a media viewer opens. Keep the
+          // Jev result even when the original DOM node is detached.
           reviewed.set(item.post.id, { signature: item.signature, result });
-          renderResult(item.article, result);
+          if (item.article.isConnected) renderResult(item.article, result);
         }
         pumpEvaluationQueue();
       });
@@ -194,9 +196,12 @@
     if (!post.text || pending.has(post.id)) return;
     if (retryAfter.get(post.id) > Date.now()) return;
     retryAfter.delete(post.id);
-    const signature = hash(`${post.text}:${post.author}:${post.handle}:${post.isAd}`);
+    // Ad labels can be added/removed while X opens media. They affect only
+    // rendering, so they must not cause the same text to be sent to Jev again.
+    const signature = hash(`${post.text}:${post.author}:${post.handle}`);
     const previous = reviewed.get(post.id);
     if (previous?.signature === signature) {
+      previous.result.isAd = post.isAd;
       renderResult(article, previous.result);
       return;
     }
