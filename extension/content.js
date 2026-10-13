@@ -6,7 +6,9 @@
     apiKey: "",
   };
   const reviewed = new Map();
+  const reviewedBySignature = new Map();
   const pending = new Set();
+  const pendingSignatures = new Set();
   const retryAfter = new Map();
   const evaluationQueue = [];
   let activeEvaluations = 0;
@@ -174,6 +176,7 @@
       chrome.runtime.sendMessage({ type: "jev-evaluate", post: item.post }, (response) => {
         activeEvaluations -= 1;
         pending.delete(item.post.id);
+        pendingSignatures.delete(item.signature);
         if (chrome.runtime.lastError || !response?.ok) {
           retryAfter.set(item.post.id, Date.now() + 10_000);
           if (item.article.isConnected) addBadge(item.article, "jev-guard-badge--error", "Jev 请求失败", response?.error || chrome.runtime.lastError?.message || "请检查 API key");
@@ -183,6 +186,7 @@
           // X can replace an article while a media viewer opens. Keep the
           // Jev result even when the original DOM node is detached.
           reviewed.set(item.post.id, { signature: item.signature, result });
+          reviewedBySignature.set(item.signature, result);
           if (item.article.isConnected) renderResult(item.article, result);
         }
         pumpEvaluationQueue();
@@ -205,7 +209,18 @@
       renderResult(article, previous.result);
       return;
     }
+    const cached = reviewedBySignature.get(signature);
+    if (cached) {
+      cached.isAd = post.isAd;
+      reviewed.set(post.id, { signature, result: cached });
+      renderResult(article, cached);
+      return;
+    }
+    // X can create several article nodes for the same post while opening a
+    // detail/media view. Only allow one Jev request for a content signature.
+    if (pendingSignatures.has(signature)) return;
     pending.add(post.id);
+    pendingSignatures.add(signature);
     if (post.isAd) {
       addWatermark(article, { isAd: true, percent: 0, categoryLabel: "广告" });
     } else {
